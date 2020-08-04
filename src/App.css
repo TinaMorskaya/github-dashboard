@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+  box-sizing: border-box;
+  --bottom-line: 1px solid #ccb9b5;
+}
+
+:root > * {
+  font-size: 0.8rem;
+}
+
+header {
+  background-color: #442C2E;
+  display:flex;
+  align-items: center;
+  color: aliceblue;
+  justify-content: start;
+  padding: 10px;
+}
+
+.gd-icon {
+  display: flex;
+  align-items: center;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+label[for="search"] {
+  margin-right: 10px;
+}
+
+
+#search {
+  min-width: 470px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  min-height: 1.5rem;
+  outline: none;
+}
+
+/*.main-grid {
+  padding-top: 1rem;
+  display:grid;
+  grid-template-columns: 11rem repeat(12,minmax(0,1fr)) 11rem;
+  grid-row-gap: calc(1em + .5vw);
+}
+*/
+
+main {
+  margin: 2% 20% 0% 20%;
+
+}
+
+.first-main-flex {
+  padding-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: var(--bottom-line);
+}
+
+h1 {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+.sorter {
+  font-size: 0.7rem;
+  white-space: nowrap;
+  background-color: #ccb9b5;
+  padding: 0.3rem;
+  border-radius: 5px;
+  box-shadow: 0 13px 27px -15px rgba(50,50,93,.25), 0 8px 16px -8px rgba(0,0,0,.3), 0 -6px 16px -6px rgba(0,0,0,.025);
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+.repo-card {
+  border-bottom: var(--bottom-line);
+  display: flex;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.repsitory-icon {
+  margin-right: 0.5rem;
+}
+
+.repo-info {
+  width: 100%;
+}
+
+.repo-info > div {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.6rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/*.repo-info > div > p {
+  margin-right: 1.5rem;
+}
+*/
+.stars img {
+  vertical-align: text-bottom;
+  margin-right: 0.1rem
+}
+
+.github-link {
+  color: #ccb9b5;
+  text-decoration: none;
+}
+
+.github-link:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
