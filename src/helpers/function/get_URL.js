@@ -6,12 +6,13 @@ function getURL (settings) {
     let urlStart = 'https://api.github.com/search/repositories?q='
     let urlEnd = '&per_page=10&sort=stars&order=desc';
     let query;
-    if (target == 'top') {
+    if (target == '') {
         query = 'stars%3A%3E1';
     } else {
-        query = name;
+        query = target + '+in:name';
     };
     let url = urlStart + query + urlEnd + `&page=${page}`
     url = url + `&page=${page}`;
+    console.log(url)
     return url
 }
