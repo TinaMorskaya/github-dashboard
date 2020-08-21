@@ -1,6 +1,6 @@
-export {getCurrentDate}
+export {getFormattedDate}
 
-function getCurrentDate(date) {
+function getFormattedDate (date) {
     let parsedDate = new Date(date);
     let day = parsedDate.getDate();
     let month = parsedDate.getMonth() + 1;

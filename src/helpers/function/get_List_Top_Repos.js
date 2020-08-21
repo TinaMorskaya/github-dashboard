@@ -1,4 +1,4 @@
-import {getCurrentDate} from "./get_Current_Date.js"
+import {getFormattedDate} from "./get_Formatted_Date.js"
 
 export {getListTopRepos}
 
@@ -11,13 +11,31 @@ export {getListTopRepos}
 //         .catch(error => console.error(error)));
 // }
 
-//how to create url for current search i write later
+
+async function getListTopRepos (url) {
+    const headers = new Headers();
+    headers.append("Authorization", "token 0bd7dc8aec13dfc83bb7874381ac16f9a19b503f");
+    let [repos, lastPageNum] = await getTopRepos(url, headers);
+    let reposWithDateCommit = await Promise.all(repos.map(async (repo) => {
+        let commitDate = await getDateCommit(repo.get('commit'), headers);
+        let commit = getFormattedDate(commitDate);
+        repo.set('commit', commit)
+        return repo
+    }));
+    return [reposWithDateCommit, lastPageNum]
+}
+
 
 
 function getTopRepos (url, headers) {
-    let tenRepositories = []
+    let tenRepositories = [];
+    let lastPageNum;
     return fetch(url, { headers })
-        .then(response => response.json()) 
+        .then(response => {
+            lastPageNum  = getNumberPagesFromLink(response.headers.get("Link"));
+            console.log(lastPageNum);
+            return response.json()
+        }) 
         .then(data => {
             data.items.forEach(repo => {
                 let oneRepo = new Map();
@@ -28,21 +46,9 @@ function getTopRepos (url, headers) {
                 tenRepositories.push(oneRepo);
             })
             //console.log(tenRepositories)
-            return tenRepositories;
+            return [tenRepositories, lastPageNum]
         })
         .catch(error => console.error(error))
-}
-
-async function getListTopRepos (url) {
-    const headers = new Headers();
-    headers.append("Authorization", "token 0bd7dc8aec13dfc83bb7874381ac16f9a19b503f");
-    let repos = await getTopRepos(url, headers);
-    return await Promise.all(repos.map(async (repo) => {
-        let commitDate = await getDateCommit(repo.get('commit'), headers);
-        let commit = getCurrentDate(commitDate);
-        repo.set('commit', commit)
-        return repo
-    }));
 }
 
 function getDateCommit (url, headers) {
@@ -53,4 +59,12 @@ function getDateCommit (url, headers) {
             return data[0].commit.author.date;
         })
         .catch(error => console.error(error))
+}
+
+function getNumberPagesFromLink (link) {
+    let lastPageMatch = link.match(/page=(\d+)>; rel="last"/);
+    let lastPageNum = lastPageMatch ? 
+        Number.parseInt(lastPageMatch[1]): 
+        Number.parseInt(link.match(/page=(\d+)>; rel="prev"/)[1]) + 1;
+    return lastPageNum
 }
