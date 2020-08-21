@@ -1,12 +1,14 @@
 import React, {useEffect, useState, useReducer, useCallback} from "react";
-import {BrowserRouter as Router, Switch, Route, useParams, useLocation, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, useLocation, useHistory} from "react-router-dom";
 import "./App.css";
 import {Banner} from "./main_page_components/Banner.js";
 import {SearchInfo} from "./main_page_components/Search_Info.js";
 import {getListTopRepos} from "./helpers/function/get_List_Top_Repos.js";
 import {getURL} from "./helpers/function/get_URL.js";
-import {ReposContainer} from "./main_page_components/Repos_Container.js"
-import {getQueryParams} from "./helpers/function/get_Query_Params.js"
+import {ReposContainer} from "./main_page_components/Repos_Container.js";
+import {getQueryParams} from "./helpers/function/get_Query_Params.js";
+import {Pagination} from "./main_page_components/Pagination.js"
+
 
 
 
@@ -45,6 +47,9 @@ function App() {
 
     const [listRepos, setListRepos] = useState(null);
 
+    const [lastPageNum, setLastPageNum] = useState(null);
+    ///или в один стейт объект записать, посмотри логику рендоринга листа репосов
+
     useEffect(()=> {
         const fetchData = async () => {  
             let newListRepos = await getListTopRepos(getURL(searchSettings));
@@ -63,6 +68,7 @@ function App() {
             <main>
                 <SearchInfo/>
                 <ReposContainer listRepos={listRepos}/>
+                <Pagination/>
             </main>
          
         </div>
