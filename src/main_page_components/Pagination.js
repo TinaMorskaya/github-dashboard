@@ -1,7 +1,9 @@
-import {Switch, Route, Link, useLocation, useHistory, Link} from "react-router-dom";
+import React, {useState} from "react";
+import {Switch, Route, Link, useLocation, useHistory} from "react-router-dom";
 export {Pagination};
 
-const Pagination = () => {
+const Pagination = (props) => {
+    console.log(props.lastPageNum)
     return (
         <div className='pagination-container'>
             <Link to=''> </Link>
