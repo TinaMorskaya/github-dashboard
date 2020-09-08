@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import "../App.css";
 import {RepositoryEntry} from "./Repository_Entry.js";
-import {getListTopRepos} from "../helpers/function/get_List_Top_Repos.js";
+import {getListRepos} from "../helpers/function/get_List_Repos.js";
 import {getURL} from "../helpers/function/get_URL.js";
 export {ReposContainer};
 
@@ -11,14 +11,15 @@ const ReposContainer = (props) => {
 
     useEffect(()=> {
         const fetchData = async () => {  
-            let [newListRepos, lastPageNum] = await getListTopRepos(getURL(props.searchSettings));
+            let [newListRepos, lastPageNum] = await getListRepos(getURL(props.searchSettings));
             setListRepos(newListRepos);
-            if (props.lastPageNum !== lastPageNum) {
-                props.setLastPageNum(lastPageNum)
-            }
+            // if (props.lastPageNum !== lastPageNum) {
+            //     props.setLastPageNum(lastPageNum)
+            // }
+            props.dispatch({name: 'lastPageNum', value: lastPageNum})
         }
         fetchData();
-    }, [props.searchSettings]);
+    }, [props.searchSettings.target, props.searchSettings.page]);
 
     if (!listRepos) return null;
     return (

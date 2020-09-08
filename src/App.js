@@ -18,6 +18,22 @@ import {Pagination} from "./main_page_components/Pagination.js"
 //     return searchSettings;
 // }
 
+function setupItemReducer (state, action) {
+    let value = action.value
+    switch (action.name) {
+        case 'target':
+            return {...state, target: value};
+        case 'page':
+            return {...state, page: Number.parseInt(value)};
+        case 'lastPageNum': 
+            return {...state, lastPageNum: value};
+        case 'all':
+            return {target: value.target, page: Number.parseInt(value.page)}
+        default:
+            return state;
+    }
+}
+
 
 
 function App() {
@@ -25,17 +41,20 @@ function App() {
     let history = useHistory();
     let location = useLocation();
     
-    const [searchSettings, setSearchSettings] = useState(()=> {
-        const initialState = getQueryParams(location);
-        return initialState;
-    })
+    // const [searchSettings, setSearchSettings] = useState(()=> {
+    //     const initialState = getQueryParams(location);
+    //     return initialState;
+    // })
+
+    const [searchSettings, dispatch] = useReducer (setupItemReducer, getQueryParams(location));
 
     useEffect(() => {
         const updateStateFromURL = () => {
             let {target, page} = getQueryParams(location);
             if (target !== searchSettings.target || page !== searchSettings.page) {
                 console.log('change state from url')
-                setSearchSettings({target, page})
+                //setSearchSettings({target, page})
+                dispatch({name: 'all', value: {'target': target, 'page': page}})
             }
             //setSearchSettings(getQueryParams(location));
         }
@@ -44,25 +63,26 @@ function App() {
     },[location]);
 
 
-    const [lastPageNum, setLastPageNum] = useState(null);
-
     return(
         <div className="App">
             <Banner 
-                setSearchSettings={setSearchSettings}
-                searchSettings={searchSettings.target}
+                search={searchSettings.target}
                 history={history}
             />
             <main>
                 <SearchInfo/>
                 <ReposContainer 
                     searchSettings={searchSettings}
-                    lastPageNum={lastPageNum}
-                    setLastPageNum={setLastPageNum}
+                    dispatch={dispatch}
+                    // lastPageNum={lastPageNum}
+                    // setLastPageNum={setLastPageNum}
                 />
                 <Pagination 
-                    lastPageNum={lastPageNum}
-                    searchSettings={searchSettings.page}
+                    //lastPageNum={lastPageNum}
+                    searchSettings={searchSettings}
+                    dispatch={dispatch}
+                    history={history}
+                
                 />
             </main>
          

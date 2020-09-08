@@ -126,6 +126,9 @@ h1 {
 }
 
 
+.pagination-container > * {
+  padding: 5px 10px;
+}
 
 
 
