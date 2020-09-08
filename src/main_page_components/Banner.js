@@ -8,9 +8,9 @@ const Banner = (props) => (
     <header role="banner">
         <AppIcon />
         <SearchForm 
-            setSearchSettings={props.setSearchSettings} 
-            searchSettings={props.searchSettings} 
-            history={props.history}/>
+            search={props.search} 
+            history={props.history}
+        />
     </header>
 );
 
@@ -21,8 +21,8 @@ const AppIcon = () => (
 );
 
 const SearchForm = (props) => {
-    let search = props.searchSettings;
-    const [searchTarget, setSerchTarget] = useState(search);
+    console.log('submit = ' + props.search)
+    const [searchTarget, setSerchTarget] = useState(props.search);
 
     const handleChange = (event) => {
         let value = event.target.value;

@@ -3,7 +3,7 @@ export {getQueryParams}
 function getParams (pageQuery) {
     return {
         target: pageQuery.get('target') || '',
-        page: pageQuery.get('page') || 1
+        page: Number.parseInt(pageQuery.get('page') || 1)
     }
 };
 

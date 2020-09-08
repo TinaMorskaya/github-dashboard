@@ -1,6 +1,6 @@
 import {getFormattedDate} from "./get_Formatted_Date.js"
 
-export {getListTopRepos}
+export {getListRepos}
 
 // async function getRepository () {
 //     fetch('https://api.github.com/orgs/axios')
@@ -12,7 +12,7 @@ export {getListTopRepos}
 // }
 
 
-async function getListTopRepos (url) {
+async function getListRepos (url) {
     const headers = new Headers();
     headers.append("Authorization", "token 0bd7dc8aec13dfc83bb7874381ac16f9a19b503f");
     let [repos, lastPageNum] = await getTopRepos(url, headers);
@@ -38,12 +38,14 @@ function getTopRepos (url, headers) {
         }) 
         .then(data => {
             data.items.forEach(repo => {
-                let oneRepo = new Map();
-                oneRepo.set('name', repo.full_name);
-                oneRepo.set('url', repo.html_url);
-                oneRepo.set('stars', repo.stargazers_count);
-                oneRepo.set('commit', repo.commits_url)
-                tenRepositories.push(oneRepo);
+                if (repo) {
+                    let oneRepo = new Map();
+                    oneRepo.set('name', repo.full_name);
+                    oneRepo.set('url', repo.html_url);
+                    oneRepo.set('stars', repo.stargazers_count);
+                    oneRepo.set('commit', repo.commits_url)
+                    tenRepositories.push(oneRepo);
+                }
             })
             //console.log(tenRepositories)
             return [tenRepositories, lastPageNum]
@@ -66,5 +68,6 @@ function getNumberPagesFromLink (link) {
     let lastPageNum = lastPageMatch ? 
         Number.parseInt(lastPageMatch[1]): 
         Number.parseInt(link.match(/page=(\d+)>; rel="prev"/)[1]) + 1;
+    console.log(typeof lastPageNum + ' lastPageNum')
     return lastPageNum
 }
