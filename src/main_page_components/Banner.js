@@ -21,7 +21,7 @@ const AppIcon = () => (
 );
 
 const SearchForm = (props) => {
-    console.log('submit = ' + props.search)
+    
     const [searchTarget, setSerchTarget] = useState(props.search);
 
     const handleChange = (event) => {
