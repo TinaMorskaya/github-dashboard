@@ -7,17 +7,6 @@ import {ReposContainer} from "./main_page_components/Repos_Container.js";
 import {getQueryParams} from "./helpers/function/get_Query_Params.js";
 import {Pagination} from "./main_page_components/Pagination.js"
 
-
-
-
-// function int (initialSetupItems) {
-//     //localStorage.removeItem('search_settings');
-//     let storedData = localStorage.getItem('search_settings');
-//     let searchSettings = storedData ? JSON.parse(storedData): initialSetupItems;
-//     console.log(searchSettings)
-//     return searchSettings;
-// }
-
 function setupItemReducer (state, action) {
     let value = action.value
     switch (action.name) {
@@ -42,16 +31,10 @@ function setupItemReducer (state, action) {
 }
 
 
-
 function App() {
 
     let history = useHistory();
     let location = useLocation();
-    
-    // const [searchSettings, setSearchSettings] = useState(()=> {
-    //     const initialState = getQueryParams(location);
-    //     return initialState;
-    // })
 
     const [searchSettings, dispatch] = useReducer (setupItemReducer, 
         {...getQueryParams(location), 
@@ -66,10 +49,8 @@ function App() {
             let {target, page} = getQueryParams(location);
             if (target !== searchSettings.target || page !== searchSettings.page) {
                 console.log('change state from url')
-                //setSearchSettings({target, page})
                 dispatch({name: 'newURL', value: {'target': target, 'page': page}})
             }
-            //setSearchSettings(getQueryParams(location));
         }
         updateStateFromURL();
         

@@ -2,15 +2,6 @@ import {getFormattedDate} from "./get_Formatted_Date.js"
 
 export {getListRepos}
 
-// async function getRepository () {
-//     fetch('https://api.github.com/orgs/axios')
-//         .then(response => response.json() 
-//         .then(data => {
-//             console.log(data) 
-//         })
-//         .catch(error => console.error(error)));
-// }
-
 
 async function getListRepos (url) {
     const headers = new Headers();
@@ -28,12 +19,17 @@ async function getListRepos (url) {
 
 
 function getTopRepos (url, headers) {
-    let tenRepositories = [];
+    try { let tenRepositories = [];
     let lastPageNum;
     return fetch(url, { headers })
         .then(response => {
-            lastPageNum  = getNumberPagesFromLink(response.headers.get("Link"));
-            console.log(lastPageNum);
+            try { 
+                lastPageNum  = getNumberPagesFromLink(response.headers.get("Link"));
+                console.log(lastPageNum);
+            }
+            catch (error) {
+                console.log('Sorry, nothing was found');
+            }
             return response.json()
         }) 
         .then(data => {
@@ -51,6 +47,10 @@ function getTopRepos (url, headers) {
             return [tenRepositories, lastPageNum, data.total_count]
         })
         .catch(error => console.error(error))
+    }
+    catch (error) {
+        console.log(error);
+      }
 }
 
 function getDateCommit (url, headers) {

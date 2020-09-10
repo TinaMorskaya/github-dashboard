@@ -7,7 +7,7 @@ export {ReposContainer};
 
 const ReposContainer = (props) => {
     
-    let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = props.searchSettings;
+    let {target: curTarget, page: curPage} = props.searchSettings;
 
 
     const [listRepos, setListRepos] = useState(null);
@@ -16,9 +16,6 @@ const ReposContainer = (props) => {
         const fetchData = async () => {  
             let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(props.searchSettings));
             setListRepos(newListRepos);
-            // if (props.lastPageNum !== lastPageNum) {
-            //     props.setLastPageNum(lastPageNum)
-            // }
             console.log('totalCount ' + totalCount)
             props.dispatch({name: 'adadditionalInfo', value: {
                 lastPageNum: lastPageNum,

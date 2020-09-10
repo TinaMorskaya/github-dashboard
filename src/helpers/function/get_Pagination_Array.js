@@ -1,25 +1,5 @@
 export {getPaginationArray}
 
-// function namingPages (curPage, lastPage) {
-    //     let names = ['<'];
-    //     if (lastPage < 10) {
-    //         for (let i = 1; i <= lastPage; i++) {
-    //             names.push(i)
-    //         }
-    //     } else if (curPage > lastPage - 5) {
-    //         names.push(1, '...');
-    //         for (let i = lastPage - 6; i <= lastPage; i++) {
-    //             names.push(i)
-    //         }
-    //     } else {
-    //         names.push(1, '...');
-    //         for (let i = curPage - 2; i <= curPage + 2; i++) {
-    //             names.push(i)
-    //         };
-    //         names.push(lastPage, '...');
-    //     }
-    //     names.push('<')
-    // };
 
     function getPaginationArray (curPage, lastPage) {
         console.log('curPage = ' + curPage +' lastPage = '+lastPage)

@@ -21,7 +21,7 @@ const AppIcon = () => (
 );
 
 const SearchForm = (props) => {
-    
+
     const [searchTarget, setSerchTarget] = useState(props.search);
 
     const handleChange = (event) => {
@@ -33,7 +33,6 @@ const SearchForm = (props) => {
         let newState = {target: searchTarget, page:1};
         event.preventDefault();
         setQueryParams(newState, props.history);
-        //props.setSearchSettings(newState);
     }; 
 
     return (
