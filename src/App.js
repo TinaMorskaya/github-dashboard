@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useReducer, useCallback} from "react";
-import {BrowserRouter as Router, Switch, Route, Link, useLocation, useHistory} from "react-router-dom";
+import React, {useEffect, useState, useReducer} from "react";
+import {BrowserRouter as Router, useLocation, useHistory} from "react-router-dom";
 import "./App.css";
 import {Banner} from "./main_page_components/Banner.js";
 import {SearchInfo} from "./main_page_components/Search_Info.js";
@@ -25,10 +25,17 @@ function setupItemReducer (state, action) {
             return {...state, target: value};
         case 'page':
             return {...state, page: Number.parseInt(value)};
-        case 'lastPageNum': 
-            return {...state, lastPageNum: value};
+        case 'adadditionalInfo': 
+            return {...state, adInfo: {
+                lastPageNum: value.lastPageNum, 
+                totalCount: value.totalCount}
+            };
         case 'newURL':
-            return {target: value.target, page: Number.parseInt(value.page), lastPageNum: 0}
+            return {target: value.target, page: Number.parseInt(value.page), adInfo: {
+                lastPageNum: 0,
+                totalCount: 0
+                }
+            };
         default:
             return state;
     }
@@ -46,7 +53,13 @@ function App() {
     //     return initialState;
     // })
 
-    const [searchSettings, dispatch] = useReducer (setupItemReducer, {...getQueryParams(location), lastPageNum: 0});
+    const [searchSettings, dispatch] = useReducer (setupItemReducer, 
+        {...getQueryParams(location), 
+            adInfo: {
+                lastPageNum: 0,
+                totalCount: 0
+            }
+        });
 
     useEffect(() => {
         const updateStateFromURL = () => {
@@ -70,15 +83,14 @@ function App() {
                 history={history}
             />
             <main>
-                <SearchInfo/>
+                <SearchInfo 
+                    totalCount={searchSettings.adInfo.totalCount}
+                />
                 <ReposContainer 
                     searchSettings={searchSettings}
                     dispatch={dispatch}
-                    // lastPageNum={lastPageNum}
-                    // setLastPageNum={setLastPageNum}
                 />
                 <Pagination 
-                    //lastPageNum={lastPageNum}
                     searchSettings={searchSettings}
                     dispatch={dispatch}
                     history={history}

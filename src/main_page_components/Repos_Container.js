@@ -7,23 +7,30 @@ export {ReposContainer};
 
 const ReposContainer = (props) => {
     
-    let {target: curTarget, page: curPage, lastPageNum: lastPage} = props.searchSettings;
+    let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = props.searchSettings;
+
 
     const [listRepos, setListRepos] = useState(null);
 
     useEffect(()=> {
         const fetchData = async () => {  
-            let [newListRepos, lastPageNum] = await getListRepos(getURL(props.searchSettings));
+            let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(props.searchSettings));
             setListRepos(newListRepos);
             // if (props.lastPageNum !== lastPageNum) {
             //     props.setLastPageNum(lastPageNum)
             // }
-            props.dispatch({name: 'lastPageNum', value: lastPageNum})
+            console.log('totalCount ' + totalCount)
+            props.dispatch({name: 'adadditionalInfo', value: {
+                lastPageNum: lastPageNum,
+                totalCount: totalCount
+                }
+            });
+            window.scrollTo(0, 0);
         }
         fetchData();
     }, [curTarget, curPage]);
 
-    if (!lastPage) return null;
+    if (!listRepos) return null;
     return (
     <div className='second-main-flex'>
         {listRepos.map((repo) => 

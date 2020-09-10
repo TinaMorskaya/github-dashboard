@@ -8,7 +8,7 @@ export {Pagination};
 const Pagination = (props) => {
 
     //let lastPage = props.lastPageNum;
-    let {target: curTarget, page: curPage, lastPageNum: lastPage} = props.searchSettings;
+    let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = props.searchSettings;
 
     let [pagination, setPagination] = useState([]);
 
@@ -27,7 +27,7 @@ const Pagination = (props) => {
         getNewPagination();
     }, [curTarget, curPage, lastPage]);
     
-    if (!lastPage) return null;
+    if (!pagination) return null;
     return (
         <div className='pagination-container'>
             {pagination.map((page, i) => 

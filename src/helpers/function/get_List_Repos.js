@@ -15,14 +15,14 @@ export {getListRepos}
 async function getListRepos (url) {
     const headers = new Headers();
     headers.append("Authorization", "token 0bd7dc8aec13dfc83bb7874381ac16f9a19b503f");
-    let [repos, lastPageNum] = await getTopRepos(url, headers);
+    let [repos, lastPageNum, totalCount] = await getTopRepos(url, headers);
     let reposWithDateCommit = await Promise.all(repos.map(async (repo) => {
         let commitDate = await getDateCommit(repo.get('commit'), headers);
         let commit = getFormattedDate(commitDate);
         repo.set('commit', commit)
         return repo
     }));
-    return [reposWithDateCommit, lastPageNum]
+    return [reposWithDateCommit, lastPageNum, totalCount]
 }
 
 
@@ -48,7 +48,7 @@ function getTopRepos (url, headers) {
                 }
             })
             //console.log(tenRepositories)
-            return [tenRepositories, lastPageNum]
+            return [tenRepositories, lastPageNum, data.total_count]
         })
         .catch(error => console.error(error))
 }
@@ -68,6 +68,5 @@ function getNumberPagesFromLink (link) {
     let lastPageNum = lastPageMatch ? 
         Number.parseInt(lastPageMatch[1]): 
         Number.parseInt(link.match(/page=(\d+)>; rel="prev"/)[1]) + 1;
-    console.log(typeof lastPageNum + ' lastPageNum')
     return lastPageNum
 }
