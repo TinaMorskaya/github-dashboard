@@ -27,8 +27,8 @@ function setupItemReducer (state, action) {
             return {...state, page: Number.parseInt(value)};
         case 'lastPageNum': 
             return {...state, lastPageNum: value};
-        case 'all':
-            return {target: value.target, page: Number.parseInt(value.page)}
+        case 'newURL':
+            return {target: value.target, page: Number.parseInt(value.page), lastPageNum: 0}
         default:
             return state;
     }
@@ -46,7 +46,7 @@ function App() {
     //     return initialState;
     // })
 
-    const [searchSettings, dispatch] = useReducer (setupItemReducer, getQueryParams(location));
+    const [searchSettings, dispatch] = useReducer (setupItemReducer, {...getQueryParams(location), lastPageNum: 0});
 
     useEffect(() => {
         const updateStateFromURL = () => {
@@ -54,7 +54,7 @@ function App() {
             if (target !== searchSettings.target || page !== searchSettings.page) {
                 console.log('change state from url')
                 //setSearchSettings({target, page})
-                dispatch({name: 'all', value: {'target': target, 'page': page}})
+                dispatch({name: 'newURL', value: {'target': target, 'page': page}})
             }
             //setSearchSettings(getQueryParams(location));
         }

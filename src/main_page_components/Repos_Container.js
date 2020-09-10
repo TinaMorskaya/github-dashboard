@@ -7,6 +7,8 @@ export {ReposContainer};
 
 const ReposContainer = (props) => {
     
+    let {target: curTarget, page: curPage, lastPageNum: lastPage} = props.searchSettings;
+
     const [listRepos, setListRepos] = useState(null);
 
     useEffect(()=> {
@@ -19,9 +21,9 @@ const ReposContainer = (props) => {
             props.dispatch({name: 'lastPageNum', value: lastPageNum})
         }
         fetchData();
-    }, [props.searchSettings.target, props.searchSettings.page]);
+    }, [curTarget, curPage]);
 
-    if (!listRepos) return null;
+    if (!lastPage) return null;
     return (
     <div className='second-main-flex'>
         {listRepos.map((repo) => 

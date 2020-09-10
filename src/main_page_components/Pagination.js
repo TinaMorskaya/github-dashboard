@@ -8,7 +8,7 @@ export {Pagination};
 const Pagination = (props) => {
 
     //let lastPage = props.lastPageNum;
-    let {target: curTarget, page: curPage, lastPageNum: lastPage} = props.searchSettings
+    let {target: curTarget, page: curPage, lastPageNum: lastPage} = props.searchSettings;
 
     let [pagination, setPagination] = useState([]);
 
