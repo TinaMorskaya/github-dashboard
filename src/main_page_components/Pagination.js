@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Switch, Route, Link, useLocation, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {getPaginationArray} from '../helpers/function/get_Pagination_Array.js'
 import {getLink} from '../helpers/function/get_Link.js';
 
@@ -7,7 +7,6 @@ export {Pagination};
 
 const Pagination = (props) => {
 
-    //let lastPage = props.lastPageNum;
     let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = props.searchSettings;
 
     let [pagination, setPagination] = useState([]);
@@ -27,7 +26,7 @@ const Pagination = (props) => {
         getNewPagination();
     }, [curTarget, curPage, lastPage]);
     
-    if (!pagination) return null;
+    if (!lastPage) return null;
     return (
         <div className='pagination-container'>
             {pagination.map((page, i) => 

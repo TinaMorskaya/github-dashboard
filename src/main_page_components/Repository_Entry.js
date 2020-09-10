@@ -1,6 +1,5 @@
 import React from "react";
 import "../App.css";
-//import bookIcon from "../icons/book.svg";
 import bookIcon from "../icons/developer_board24px.svg";
 import starIcon from "../icons/star_outline24px.svg";
 export {RepositoryEntry}
