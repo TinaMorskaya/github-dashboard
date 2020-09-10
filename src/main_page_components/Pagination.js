@@ -46,10 +46,12 @@ const Pagination = (props) => {
 
 const CreatePointer = (props) => {
     
+    let itemClass = typeof props.name === 'number' ? 'current-page': 'disabled';
+
     return (
         <React.Fragment>
             {props.link? <Link to={props.link}>{props.name}</Link>:
-                <span className='disabled'>{props.name}</span>
+                <span className={itemClass}>{props.name}</span>
             }
         </React.Fragment>
     )
