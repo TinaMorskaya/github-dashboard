@@ -5,7 +5,7 @@ import {Banner} from "./main_page_components/Banner.js";
 import {SearchInfo} from "./main_page_components/Search_Info.js";
 import {ReposContainer} from "./main_page_components/Repos_Container.js";
 import {getQueryParams} from "./helpers/function/get_Query_Params.js";
-import {Pagination} from "./main_page_components/Pagination.js"
+import {Pagination} from "./main_page_components/Pagination.js";
 
 function setupItemReducer (state, action) {
     let value = action.value
@@ -55,7 +55,6 @@ function App() {
         updateStateFromURL();
         
     },[location]);
-
 
     return(
         <div className="App">

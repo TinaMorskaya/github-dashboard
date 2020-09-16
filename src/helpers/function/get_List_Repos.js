@@ -4,8 +4,12 @@ export {getListRepos}
 
 
 async function getListRepos (url) {
+    
+    const token = process.env.TOKEN_GITHUB;
+
     const headers = new Headers();
-    headers.append("Authorization", "token 0bd7dc8aec13dfc83bb7874381ac16f9a19b503f");
+    const gitHubToken = "token " + token;
+    headers.append("Authorization", gitHubToken);
     let [repos, lastPageNum, totalCount] = await getTopRepos(url, headers);
     let reposWithDateCommit = await Promise.all(repos.map(async (repo) => {
         let commitDate = await getDateCommit(repo.get('commit'), headers);
