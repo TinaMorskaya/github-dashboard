@@ -13,3 +13,10 @@ The order of sorting the repositories is by number of stars on GitHub (from high
 On page reloads, the search query and current page number state should be preserved and used for the original request.
 
 There is a pagination at the bottom of the page.
+
+## How to use
+* `git clone` this repository;
+* `npm install` all dependencies;
+*  create .env file in root directory;
+*  type into .env `TOKEN_GITHUB=your own token`; 
+*  type `npm start`, if you want to run NodeJS server;
