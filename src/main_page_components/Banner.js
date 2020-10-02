@@ -1,15 +1,15 @@
 import React, {useState} from "react";
 import "../App.css";
 import gb from "../icons/gb.svg";
-import {setQueryParams} from "../helpers/function/set_Query_Params.js";
+import {setQueryParams} from "../helpers/function/set_query_params.js";
 export {Banner};
 
-const Banner = (props) => (
+const Banner = ({search, history}) => (
     <header role="banner">
         <AppIcon />
         <SearchForm 
-            search={props.search} 
-            history={props.history}
+            search={search} 
+            history={history}
         />
     </header>
 );
@@ -20,9 +20,9 @@ const AppIcon = () => (
     </div>
 );
 
-const SearchForm = (props) => {
+const SearchForm = ({search, history}) => {
 
-    const [searchTarget, setSerchTarget] = useState(props.search);
+    const [searchTarget, setSerchTarget] = useState(search);
 
     const handleChange = (event) => {
         let value = event.target.value;
@@ -32,12 +32,14 @@ const SearchForm = (props) => {
     const handleSubmit = (event) => {
         let newState = {target: searchTarget, page:1};
         event.preventDefault();
-        setQueryParams(newState, props.history);
+        setQueryParams(newState, history);
     }; 
 
     return (
         <form className="search-form" role="search" onSubmit={handleSubmit}>
-            <label htmlFor="search">Which repository are you interested in?</label>
+            <label htmlFor="search">
+                Which repository are you interested in?
+            </label>
             <input id="search" type="text" placeholder="Search..." onChange={handleChange} value={searchTarget}/>
         </form>
     )

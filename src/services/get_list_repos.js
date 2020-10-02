@@ -1,4 +1,4 @@
-import {getFormattedDate} from "./get_formatted_date.js"
+import {getFormattedDate} from "../helpers/function/get_formatted_date.js"
 
 export {getListRepos}
 

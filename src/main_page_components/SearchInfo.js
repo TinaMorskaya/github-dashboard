@@ -3,11 +3,11 @@ import "../App.css";
 export {SearchInfo}
 
 
-function SearchInfo(props) {
+function SearchInfo({totalCount}) {
     return(
         <div className="first-main-flex">
           <div className="number-search-results">
-            <h1>{props.totalCount.toLocaleString()} repository results</h1>
+            <h1>{totalCount.toLocaleString()} repository results</h1>
           </div>
           <button className="sorter">
             Sort: <strong>Мost stars</strong>
