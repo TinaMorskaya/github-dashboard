@@ -1,25 +1,27 @@
 import React, {useState, useEffect} from "react";
 import "../App.css";
-import {RepositoryEntry} from "./Repository_Entry.js";
-import {getListRepos} from "../helpers/function/get_List_Repos.js";
-import {getURL} from "../helpers/function/get_URL.js";
+import {RepositoryEntry} from "./RepositoryEntry.js";
+import {getListRepos} from "../services/get_list_repos.js";
+import {getURL} from "../helpers/function/get_url.js";
 export {ReposContainer};
 
-const ReposContainer = (props) => {
+const ReposContainer = ({searchSettings, dispatch}) => {
     
-    let {target: curTarget, page: curPage} = props.searchSettings;
+    let {target: curTarget, page: curPage} = searchSettings;
 
 
     const [listRepos, setListRepos] = useState(null);
 
     useEffect(()=> {
         const fetchData = async () => {  
-            let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(props.searchSettings));
+            let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(searchSettings));
             setListRepos(newListRepos);
-            console.log('totalCount ' + totalCount)
-            props.dispatch({name: 'adadditionalInfo', value: {
-                lastPageNum: lastPageNum,
-                totalCount: totalCount
+            console.log('totalCount ' + totalCount);
+            dispatch({
+                name: 'adadditionalInfo', 
+                value: {
+                    lastPageNum: lastPageNum,
+                    totalCount: totalCount
                 }
             });
             window.scrollTo(0, 0);

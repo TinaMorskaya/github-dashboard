@@ -1,27 +1,32 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
-import {getPaginationArray} from '../helpers/function/get_Pagination_Array.js'
-import {getLink} from '../helpers/function/get_Link.js';
+import "../App.css";
+import {CreatePointer} from './CreatePointer.js'
+import {getPaginationArray} from '../helpers/function/get_pagination_array.js'
+import {getLink} from '../helpers/function/get_link.js';
 
 export {Pagination};
 
-const Pagination = (props) => {
+const Pagination = ({searchSettings}) => {
 
-    let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = props.searchSettings;
+    let {target: curTarget, page: curPage, adInfo: {lastPageNum: lastPage}} = searchSettings;
 
     let [pagination, setPagination] = useState([]);
 
 
     useEffect(()=> {
         const getNewPagination = () => { 
-            if (lastPage) {
+            if (!lastPage) {
+                return 
+            }
             let paginationArray = getPaginationArray(curPage, lastPage);
             let paginationObj = paginationArray.map((el)=>{
                 let link = getLink(el, curPage, lastPage, curTarget);
-                return {name: el, link: link}
+                return {
+                    name: el, 
+                    link: link
+                }
             });
             setPagination(paginationObj);
-            }
         }
         getNewPagination();
     }, [curTarget, curPage, lastPage]);
@@ -37,21 +42,5 @@ const Pagination = (props) => {
                 /> 
             )}  
         </div>
-    )
-};
-
-
-
-
-const CreatePointer = (props) => {
-    
-    let itemClass = typeof props.name === 'number' ? 'current-page': 'disabled';
-
-    return (
-        <React.Fragment>
-            {props.link? <Link to={props.link}>{props.name}</Link>:
-                <span className={itemClass}>{props.name}</span>
-            }
-        </React.Fragment>
     )
 };

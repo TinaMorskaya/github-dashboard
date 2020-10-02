@@ -6,7 +6,7 @@ export {RepositoryEntry}
 
 
 
-const RepositoryEntry = (props) => {
+const RepositoryEntry = ({repoName, repoLink, date, countStars}) => {
     return (
         <div className="repo-card">
             <div className="repsitory-icon" aria-hidden="true">
@@ -14,15 +14,15 @@ const RepositoryEntry = (props) => {
             </div>
             <div className="repo-info">
                 <p>
-                    {props.repoName}
+                    {repoName}
                 </p>
-                <a className="github-link" href={props.repoLink}>{props.repoName} on GitHub</a>
+                <a className="github-link" href={repoLink}>{repoName} on GitHub</a>
                 <div>
                     <div className="stars">
-                        <p><img src={starIcon} aria-label="star"/>{props.countStars}</p>
+                        <p><img src={starIcon} aria-label="star"/>{countStars}</p>
                     </div>
                     <p>
-                        Latest commit: {props.date}
+                        Latest commit: {date}
                     </p>
                 </div>
             </div>
