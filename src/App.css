@@ -4,6 +4,7 @@
   font-family: Arial, sans-serif;
   line-height: 1.5;
   box-sizing: border-box;
+  overflow-wrap: anywhere;
   --bottom-line: 1px solid #ccb9b5;
   --main-pink-color: #ccb9b5;
 }
@@ -12,10 +13,14 @@
   font-size: 0.8rem;
 }
 
-header {
-  background-color: #442C2E;
+.flex-sample {
   display:flex;
   align-items: center;
+  flex-wrap: nowrap;
+}
+
+header {
+  background-color: #442C2E;
   color: aliceblue;
   justify-content: start;
   padding: 10px;
@@ -28,8 +33,6 @@ header {
 
 .search-form {
   width: 100%;
-  display: flex;
-  align-items: center;
   justify-content: flex-end;
 }
 
@@ -62,14 +65,12 @@ main {
 
 .first-main-flex {
   padding-bottom: 0.8rem;
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   border-bottom: var(--bottom-line);
 }
 
 h1 {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
   padding: 0;
 }
@@ -107,10 +108,6 @@ h1 {
   width: 100%;
 }
 
-/*.repo-info > div > p {
-  margin-right: 1.5rem;
-}
-*/
 .stars img {
   vertical-align: text-bottom;
   margin-right: 0.1em
@@ -158,6 +155,47 @@ h1 {
 
 .disabled {
   color: gray;
+}
+
+@media all and (max-width: 800px) { 
+  label[for="search"] {
+    margin-right: 0px;
+  }
+  #search {
+    min-width: 300px;
+    margin: 0.4em 0;
+  }
+  .number-search-results, .search-form label {
+    text-align: center;
+  }
+  .number-search-results {
+    margin: 0.4em 0;
+  }
+  main {
+    margin: 2% 10% 0% 10%;
+  }
+  .flex-sample {
+    flex-direction: column;
+  }
+}
+
+@media all and (max-width: 544px) {
+  .pagination-container :nth-child(n+2):nth-last-child(n+2) {
+    display: none;
+  }
+  .pagination-container > * {
+    padding: 0.4em 2em;
+  }
+}
+
+@media all and (max-width: 300px) {
+  #search {
+    min-width: 240px;
+  }
+  .repo-info > div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 
