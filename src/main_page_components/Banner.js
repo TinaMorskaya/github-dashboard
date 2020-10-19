@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import "../App.css";
-import gb from "../icons/gb.svg";
+import gb from "../icons/binoculars.svg";
 import {setQueryParams} from "../helpers/function/set_query_params.js";
 export {Banner};
 
 const Banner = ({search, history}) => (
-    <header role="banner">
+    <header role="banner" className="flex-sample">
         <AppIcon />
         <SearchForm 
             search={search} 
@@ -36,7 +36,7 @@ const SearchForm = ({search, history}) => {
     }; 
 
     return (
-        <form className="search-form" role="search" onSubmit={handleSubmit}>
+        <form className="search-form flex-sample" role="search" onSubmit={handleSubmit}>
             <label htmlFor="search">
                 Which repository are you interested in?
             </label>

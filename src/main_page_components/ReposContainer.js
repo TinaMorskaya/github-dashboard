@@ -14,6 +14,7 @@ const ReposContainer = ({searchSettings, dispatch}) => {
 
     useEffect(()=> {
         const fetchData = async () => {  
+            window.scrollTo(0, 0);
             let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(searchSettings));
             setListRepos(newListRepos);
             console.log('totalCount ' + totalCount);
@@ -24,7 +25,7 @@ const ReposContainer = ({searchSettings, dispatch}) => {
                     totalCount: totalCount
                 }
             });
-            window.scrollTo(0, 0);
+            //window.scrollTo(0, 0);
         }
         fetchData();
     }, [curTarget, curPage]);
