@@ -85,6 +85,12 @@ h1 {
   border: 1px solid rgba(0,0,0,.05);
 }
 
+.loading {
+  padding: 0.8rem 0;
+  text-align: center;
+  color: var(--main-pink-color);
+}
+
 .repo-card {
   border-bottom: var(--bottom-line);
   display: flex;
