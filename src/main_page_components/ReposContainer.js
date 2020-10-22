@@ -9,12 +9,13 @@ const ReposContainer = ({searchSettings, dispatch}) => {
     
     let {target: curTarget, page: curPage} = searchSettings;
 
-
     const [listRepos, setListRepos] = useState(null);
+
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(()=> {
         const fetchData = async () => {  
-            window.scrollTo(0, 0);
+            setIsLoading(true);
             let [newListRepos, lastPageNum, totalCount] = await getListRepos(getURL(searchSettings));
             setListRepos(newListRepos);
             console.log('totalCount ' + totalCount);
@@ -25,23 +26,25 @@ const ReposContainer = ({searchSettings, dispatch}) => {
                     totalCount: totalCount
                 }
             });
-            //window.scrollTo(0, 0);
+            setIsLoading(false);
         }
         fetchData();
     }, [curTarget, curPage]);
 
-    if (!listRepos) return null;
     return (
-    <div className='second-main-flex'>
-        {listRepos.map((repo) => 
-            <RepositoryEntry 
-                key = {repo.get('name')}
-                repoName = {repo.get('name')} 
-                repoLink = {repo.get('url')} 
-                date = {repo.get('commit')} 
-                countStars = {repo.get('stars')}
-            />
-        )} 
-    </div>
+        <div className='second-main-flex'>
+            {isLoading 
+              ? <h1 className='loading'>Loading...</h1>
+              : listRepos.map ((repo) => 
+                    <RepositoryEntry 
+                        key = {repo.get('name')}
+                        repoName = {repo.get('name')} 
+                        repoLink = {repo.get('url')} 
+                        date = {repo.get('commit')} 
+                        countStars = {repo.get('stars')}
+                    />
+                )
+            }
+        </div>
     )
 }

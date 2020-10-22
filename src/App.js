@@ -25,7 +25,7 @@ function setupItemReducer (state, action) {
                 page: Number.parseInt(value.page), 
                 adInfo: {
                     lastPageNum: 0,
-                    totalCount: 0
+                    totalCount: null
                 }
             };
         default:
@@ -44,7 +44,7 @@ function App() {
         {...getQueryParams(location), 
             adInfo: {
                 lastPageNum: 0,
-                totalCount: 0
+                totalCount: null
             }
         }
     );
