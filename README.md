@@ -20,5 +20,5 @@ There is a pagination at the bottom of the page.
 * `git clone` this repository;
 * `npm install` all dependencies;
 *  create .env file in root directory;
-*  type into .env `TOKEN_GITHUB=your own token`; 
+*  type into .env `TOKEN_GITHUB=your own token` ([How to create your token](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token));
 *  type `npm start`, if you want to run NodeJS server;
