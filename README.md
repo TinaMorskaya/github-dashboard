@@ -2,6 +2,8 @@
 
 This is an application that allow you to find repositories by their names.
 
+![Preview of GitHub Dashboard](preview.jpg)
+
 ## Description
 
 When type text into the search field and press Enter, a search by name should be performed and its result should be displayed in the list of repositories.
